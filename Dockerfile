@@ -44,8 +44,8 @@ RUN apk add --no-cache \
 
 ENV TZ="UTC"
 
-COPY recorder.conf /config/recorder.conf
-COPY JSON.lua /config/JSON.lua
+COPY recorder.conf /store/recorder.conf
+COPY JSON.lua /store/JSON.lua
 
 COPY --from=builder /app /
 
@@ -53,8 +53,8 @@ COPY recorder-health.sh /usr/sbin/recorder-health.sh
 COPY entrypoint.sh /usr/sbin/entrypoint.sh
 
 RUN chmod +x /usr/sbin/*.sh
-RUN chmod +r /config/recorder.conf
-RUN chmod 444 /config/timezone16.bin
+RUN chmod +r /store/recorder.conf
+RUN chmod 444 /store/timezone16.bin
 
 # If you absolutely need health-checking, enable the option below.  Keep in
 # mind that until https://github.com/systemd/systemd/issues/6432 is resolved,
@@ -65,7 +65,7 @@ RUN chmod 444 /config/timezone16.bin
 EXPOSE 8083
 
 # ENV OTR_CAFILE=/etc/ssl/cert.pem
-ENV OTR_STORAGEDIR=/store
+ENV OTR_STORAGEDIR=/store/data
 ENV OTR_TOPIC="owntracks/#"
 
 ENTRYPOINT ["/usr/sbin/entrypoint.sh"]

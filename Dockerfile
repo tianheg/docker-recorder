@@ -30,8 +30,6 @@ FROM alpine:3.16
 
 ENV DOCKER_RUNNING=1
 
-VOLUME ["/store", "/config"]
-
 RUN apk add --no-cache \
 	curl \
 	jq \
